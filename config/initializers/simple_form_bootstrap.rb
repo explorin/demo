@@ -26,13 +26,40 @@ end
 SimpleForm.setup do |config|
   config.boolean_style = :nested
  
-  config.wrappers :bootstrap3, :tag => 'div', :class => 'form-group', :error_class => 'has-error' do |b|
+  config.wrappers :bootstrap3, tag: 'div', class: 'form-group', error_class: 'has-error',
+      defaults: { input_html: { class: 'default_class' } } do |b|
+    
     b.use :html5
+    b.use :min_max
+    b.use :maxlength
     b.use :placeholder
-    b.use :label
-    b.use :input, :wrap_with => { :tag => 'div', :class => 'controls col-xs-4 col-sm-4 col-md-4 col-lg-4' }
-    b.use :error, :wrap_with => { :tag => 'span', :class => 'help-block' }
-    b.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
+    
+    b.optional :pattern
+    b.optional :readonly
+    
+    b.use :label_input
+    b.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
+    b.use :error, wrap_with: { tag: 'span', class: 'help-block has-error' }
+  end
+
+  config.wrappers :bootstrap3_horizontal, tag: 'div', class: 'form-group', error_class: 'has-error',
+                  defaults: { input_html: { class: 'form-group default_class' } } do |b|
+
+    b.use :html5
+    b.use :min_max
+    b.use :maxlength
+    b.use :placeholder
+
+    b.optional :pattern
+    b.optional :readonly
+
+    b.use :label,  class: 'col-sm-5 control-label'
+
+    b.wrapper tag: 'div', class: 'col-sm-7' do |input_block|
+      input_block.use :input
+      input_block.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
+    end
+    b.use :error, wrap_with: { tag: 'span', class: 'help-block has-error' }
   end
  
   config.wrappers :prepend, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
@@ -80,10 +107,5 @@ SimpleForm.setup do |config|
   # Check the Bootstrap docs (http://getbootstrap.com/)
   # to learn about the different styles for forms and inputs,
   # buttons and other elements.
-
-  config.form_class = "form-horizontal"
-  config.label_class = "col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label"
-  #config.input_class = "form-control" #not yet supported
   config.default_wrapper = :bootstrap3
-
 end
