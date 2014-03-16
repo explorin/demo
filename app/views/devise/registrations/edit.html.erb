@@ -4,8 +4,6 @@
  <%= f.error_notification %>
 
   <%= f.input :email %>
-  <%= f.input :username %>
-
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
