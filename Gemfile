@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.3'
 gem 'jquery-rails'
 gem 'devise'
-gem 'simple_form'
+gem 'simple_form', '~> 3.0.0'
 
 # Use sqlite3 as the database for Active Record
 
